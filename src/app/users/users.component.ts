@@ -11,7 +11,7 @@ import { url } from 'inspector';
 export class UsersComponent implements OnInit {
 
   users:User[] =[];
-  showExtended:boolean=false;
+  showExtended:boolean=true;
   //when loading externally
   loaded:boolean = false;
   enableAdd: boolean = true; 
@@ -32,7 +32,8 @@ this.users = [
           city:'Boston',
           state:'MA'
         },
-        registered: new Date('2001-04-18T13:30:00')
+        registered: new Date('2001-04-18T13:30:00'),
+        hide:true
       },
       {
         firstname:'Kevin',
@@ -44,7 +45,8 @@ this.users = [
           state:'LA'
         },
         isActive:true,
-        registered: new Date('1996-10-16T13:30:00')
+        registered: new Date('1996-10-16T13:30:00'),
+        hide:true
       },
       {
         firstname:'Phil',
@@ -56,7 +58,8 @@ this.users = [
           state:'K'
         },
         // The standard format is: YYYY-MM-DDTHH:mm:ss.sssZ
-        registered: new Date('2002-06-20T13:30:00')
+        registered: new Date('2002-06-20T13:30:00'),
+        hide:true
       }
     ];
     this.loaded = true;
@@ -64,15 +67,17 @@ this.users = [
 
 }
 
-fireEvent(e:any){
-  // console.log("Button Clicked");
-  console.log(e.type);
-  
-  
+toggleHide(user:User){
+  // user.hide= false;   this one only unhides the content
+  user.hide= !user.hide; //to hide and unhide it
 }
 
   addUser(user:User){
     this.users.push(user);
   }
 
+  // fireEvent(e:any){
+  //   // console.log("Button Clicked");
+  //   console.log(e.type);
+  // }
 }
