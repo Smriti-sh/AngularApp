@@ -1,6 +1,6 @@
 <h2>Users</h2>
 <!-- [] is the property of the DOM element or component you want to bind to. -->
-<button class="btn btn-block mt-4 mb-4" [disabled]="!enableAdd" >Add New User</button>
+<button (click)="addUser({firstname:'Mary', lastName:'Jackson', isActive:true})" class="btn btn-block mt-4 mb-4" [disabled]="!enableAdd" >Add New User</button>
 
 <!-- defining a template for if this is false called as noUsers -->
 <!-- <ul *ngIf="users.length >0;else noUsers"> -->
@@ -12,7 +12,6 @@
                 <h3>{{user.firstname}} {{user.lastName}}</h3>
 
                 <ul *ngIf="showExtended && user.age && user.address">
-                    <!-- <li>{{age}}</li> -->
                     <li class="list-group-item">Age: {{user.age}}</li>
                     <li class="list-group-item">Address: {{user.address.street}}{{user.address.city}}, {{user.address.state}}</li>
                     <li class="list-group-item">Joined on: {{user.registered | date :"fullDate"}}</li>

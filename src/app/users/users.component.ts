@@ -11,7 +11,7 @@ import { url } from 'inspector';
 export class UsersComponent implements OnInit {
 
   users:User[] =[];
-  showExtended:boolean=true;
+  showExtended:boolean=false;
   //when loading externally
   loaded:boolean = false;
   enableAdd: boolean = true; 
@@ -20,47 +20,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(){
 
-    //for cases when we fetch users from a server that took like 2 seconds to load or something like that
-    //and we can do that by using a setTimeout
-      // setTimeout(() => {
-  //       //users property wiz an array of user objects
-        // this.users = [
-        //   {
-        //     firstname:'john',
-        //     lastName:'doe',
-        //     age:30,
-        //     address:{
-        //       street:'50 Main St.',
-        //       city:'Boston',
-        //       state:'MA'
-        //     }
-        //   },
-        //   {
-        //     firstname:'kevin',
-        //     lastName:'johnson',
-        //     age:34,
-        //     address:{
-        //       street:'50 hola St.',
-        //       city:'cosco',
-        //       state:'LA'
-        //     }
-        //   },
-        //   {
-        //     firstname:'phil',
-        //     lastName:'dunphy',
-        //     age:40,
-        //     address:{
-        //       street:'50 bell St.',
-        //       city:'xyz',
-        //       state:'K'
-        //     }
-        //   }
-        // ];
-        // this.loaded = true;
-      // },10000);
-    
-
-    this.showExtended = true;
+// this.showExtended = true;
 
 this.users = [
       {
@@ -102,6 +62,13 @@ this.users = [
     this.loaded = true;
 
 
+}
+
+fireEvent(e:any){
+  // console.log("Button Clicked");
+  console.log(e.type);
+  
+  
 }
 
   addUser(user:User){

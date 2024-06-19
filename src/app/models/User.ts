@@ -2,7 +2,7 @@ export interface  User{
     firstname:string,
     lastName:string,
     // properties with ? are not mandatory
-    age:number,
+    age?:number,
     address?:{
       street?:string,
       city?:string,
