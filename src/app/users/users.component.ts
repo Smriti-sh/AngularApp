@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/User';
 import { url } from 'inspector';
+import { FormsModule } from '@angular/forms';
 // import { NgZone } from '@angular/core';
 
 @Component({
@@ -10,11 +11,22 @@ import { url } from 'inspector';
 })
 export class UsersComponent implements OnInit {
 
+  //property to bin form data
+  user:User={
+    firstname:'',
+    lastName:'',
+    age:0,    //cant assign null
+    address:{
+      street:'',
+      city:'',
+      state:''
+    }
+  };
   users:User[] =[];
   showExtended:boolean=true;
   //when loading externally
   loaded:boolean = false;
-  enableAdd: boolean = true; 
+  enableAdd: boolean = false; 
   showUserForm:boolean=false;
 
   constructor(){}
@@ -73,8 +85,21 @@ toggleHide(user:User){
   user.hide= !user.hide; //to hide and unhide it
 }
 
-  addUser(user:User){
-    this.users.push(user);
+  addUser(){
+    this.user.isActive = true;
+    this.user.registered= new Date();
+    this.users.unshift(this.user);
+    // to clear out the form
+    this.user={
+      firstname:'',
+      lastName:'',
+      age:0,    //cant assign null
+      address:{
+        street:'',
+        city:'',
+        state:''
+    }
+  }
   }
 
   onSubmit(e:any){
