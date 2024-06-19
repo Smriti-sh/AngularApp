@@ -1,6 +1,38 @@
+<button class="btn btn-dark  mb-3" (click)="showUserForm=!showUserForm">Add User</button>
+<div *ngIf="showUserForm">
+    <h2>Add User</h2>
+    <form (submit)="onSubmit($event)">
+        <div class="form-group">
+            <label>First Name :</label>
+            <input (keydown)="fireEvent($event)" type="text" class="form-control" name="firstName">
+        </div>
+        <div class="form-group">
+            <label>Last Name :</label>
+            <input type="text" class="form-control" name="lasstName">
+        </div>
+        <div class="form-group">
+            <label>Age :</label>
+            <input type="number" class="form-control" name="age">
+        </div>
+        <div class="form-group">
+            <label>Street Address :</label>
+            <input type="text" class="form-control" name="street">
+        </div>
+        <div class="form-group">
+            <label>City :</label>
+            <input type="text" class="form-control" name="city">
+        </div>
+        <div class="form-group">
+            <label>State :</label>
+            <input type="text" class="form-control" name="state">
+        </div>
+        <button (click)="addUser({firstname:'Mary', lastName:'Jackson', isActive:true})" class="btn btn-block mt-4 mb-4" [disabled]="!enableAdd" >Add New User</button>
+    </form>
+</div>
+
 <h2>Users</h2>
 <!-- [] is the property of the DOM element or component you want to bind to. -->
-<button (click)="addUser({firstname:'Mary', lastName:'Jackson', isActive:true})" class="btn btn-block mt-4 mb-4" [disabled]="!enableAdd" >Add New User</button>
+
 
 <!-- defining a template for if this is false called as noUsers -->
 <!-- <ul *ngIf="users.length >0;else noUsers"> -->

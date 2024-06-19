@@ -15,6 +15,7 @@ export class UsersComponent implements OnInit {
   //when loading externally
   loaded:boolean = false;
   enableAdd: boolean = true; 
+  showUserForm:boolean=false;
 
   constructor(){}
 
@@ -68,7 +69,7 @@ this.users = [
 }
 
 toggleHide(user:User){
-  // user.hide= false;   this one only unhides the content
+  // user.hide= false;   this one only unhides the content 
   user.hide= !user.hide; //to hide and unhide it
 }
 
@@ -76,8 +77,15 @@ toggleHide(user:User){
     this.users.push(user);
   }
 
-  // fireEvent(e:any){
-  //   // console.log("Button Clicked");
-  //   console.log(e.type);
-  // }
+  onSubmit(e:any){
+    
+    console.log(123);
+    e.preventDefault();
+  }
+
+  fireEvent(e:any){
+    // console.log("Button Clicked");
+    console.log(e.type);
+    console.log(e.target.value);
+  }
 }
