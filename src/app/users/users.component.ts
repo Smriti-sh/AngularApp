@@ -15,12 +15,7 @@ export class UsersComponent implements OnInit {
   user:User={
     firstname:'',
     lastName:'',
-    age:0,    //cant assign null
-    address:{
-      street:'',
-      city:'',
-      state:''
-    }
+    email: ''
   };
   users:User[] =[];
   showExtended:boolean=true;
@@ -39,24 +34,14 @@ this.users = [
       {
         firstname:'John',
         lastName:'doe',
-        age:30,
-        address:{
-          street:'50 Main St.',
-          city:'Boston',
-          state:'MA'
-        },
+        email: 'dfgh@fghj.com',
         registered: new Date('2001-04-18T13:30:00'),
         hide:true
       },
       {
         firstname:'Kevin',
         lastName:'johnson',
-        age:34,
-        address:{
-          street:'50 hola St.',
-          city:'cosco',
-          state:'LA'
-        },
+        email: 'dfgh@fghj.com',
         isActive:true,
         registered: new Date('1996-10-16T13:30:00'),
         hide:true
@@ -64,12 +49,7 @@ this.users = [
       {
         firstname:'Phil',
         lastName:'Dunphy',
-        age:40,
-        address:{
-          street:'50 bell St.',
-          city:'xyz',
-          state:'K'
-        },
+        email: 'dfgh@fghj.com',
         // The standard format is: YYYY-MM-DDTHH:mm:ss.sssZ
         registered: new Date('2002-06-20T13:30:00'),
         hide:true
@@ -80,10 +60,7 @@ this.users = [
 
 }
 
-toggleHide(user:User){
-  // user.hide= false;   this one only unhides the content 
-  user.hide= !user.hide; //to hide and unhide it
-}
+
 
   addUser(){
     this.user.isActive = true;
@@ -93,12 +70,7 @@ toggleHide(user:User){
     this.user={
       firstname:'',
       lastName:'',
-      age:0,    //cant assign null
-      address:{
-        street:'',
-        city:'',
-        state:''
-    }
+      email: '',
   }
   }
 
@@ -108,9 +80,14 @@ toggleHide(user:User){
     e.preventDefault();
   }
 
-  fireEvent(e:any){
-    // console.log("Button Clicked");
-    console.log(e.type);
-    console.log(e.target.value);
+  // fireEvent(e:any){
+  //   // console.log("Button Clicked");
+  //   console.log(e.type);
+  //   console.log(e.target.value);
+  // }
+
+  toggleHide(user:User){
+    // user.hide= false;   this one only unhides the content 
+    user.hide= !user.hide; //to hide and unhide it
   }
 }
