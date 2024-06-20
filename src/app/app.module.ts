@@ -7,7 +7,10 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { UsersComponent } from './users/users.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { DataService } from './services/data.service';
+import { UserService } from './services/user.service';
+import { PostService } from './services/post.service';
+import { PostsComponent } from './posts/posts.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,6 +18,7 @@ import { DataService } from './services/data.service';
     UserComponent,
     UsersComponent,
     NavbarComponent,
+    PostsComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,7 +28,9 @@ import { DataService } from './services/data.service';
   ],
   providers: [
     provideClientHydration(),
-    DataService
+    UserService,
+    PostService,
+    provideHttpClient()
   ],
   bootstrap: [AppComponent]
 })
