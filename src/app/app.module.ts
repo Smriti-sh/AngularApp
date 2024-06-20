@@ -10,7 +10,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { UserService } from './services/user.service';
 import { PostService } from './services/post.service';
 import { PostsComponent } from './posts/posts.component';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient,withFetch } from '@angular/common/http';
+import { PostFormComponent } from './post-form/post-form.component';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +21,7 @@ import { provideHttpClient } from '@angular/common/http';
     UsersComponent,
     NavbarComponent,
     PostsComponent,
+    PostFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,7 @@ import { provideHttpClient } from '@angular/common/http';
     provideClientHydration(),
     UserService,
     PostService,
-    provideHttpClient()
+    provideHttpClient(withFetch()),
   ],
   bootstrap: [AppComponent]
 })
