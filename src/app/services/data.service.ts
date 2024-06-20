@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/User';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,10 @@ import { User } from '../models/User';
 export class DataService {
 
   users: User[]=[];
-
+  //observable property
+  data: Observable <any> = of([]);     //Array<any> means the Observable emits an array where the type of the 
+  //of function returns an Observable that emits the provided value (here, an empty array []) and then completes.
+  //When subscribed to, this Observable will immediately emit the empty array ([]) and then complete the sequence.
   constructor() { 
 
     this.users = [
@@ -37,9 +41,32 @@ export class DataService {
     ];
   }
 
-  getUsers(): User[] {
-    console.log('Fetching users from service');
-    return this.users;
+  //is called, creating the Observable but not starting emissions yet.
+  getData(){
+    //we can subscribe to this observable which will give us an open stream
+    this.data = new Observable(observer => {
+
+       setTimeout(()=>{
+        observer.next(1);
+       },1000);
+
+       setTimeout(()=>{
+        observer.next(2);
+       },2000);
+
+       setTimeout(()=>{
+        observer.next(3);
+       },3000);
+
+       setTimeout(()=>{
+        observer.next({naam: 'Brad'});
+       },4000);
+    });
+    return this.data;
+  }
+
+  getUsers(): Observable<User[]> {
+    return of(this.users);
   }
 
   addUser(user:User){

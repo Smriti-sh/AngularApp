@@ -12,7 +12,7 @@ import { DataService } from '../services/data.service';
 })
 export class UsersComponent implements OnInit {
 
-  @ViewChild('userForm') form: any;
+  
 
   //property to bin form data
   user:User={
@@ -26,6 +26,8 @@ export class UsersComponent implements OnInit {
   loaded:boolean = false;
   enableAdd: boolean = false; 
   showUserForm:boolean=false;
+  @ViewChild('userForm') form: any;
+  data:any;
 
   constructor(private dataService:DataService){
     // dataService variable will allow us to access any method from DataService
@@ -34,10 +36,17 @@ export class UsersComponent implements OnInit {
   }
 
   ngOnInit(){
+    //is called, creating the Observable but not starting emissions yet.
+     this.dataService.getData().subscribe(data => {
+      console.log(data);
+     });
 
-this.users = this.dataService.getUsers();
-
-    this.loaded = true;
+    // this.users = this.dataService.getUsers();   //this is going to be a synchronous so it wont work anymore
+     this.dataService.getUsers().subscribe(users => {
+      this.users = users;
+      this.loaded = true;
+     })
+    
 
 
 }
