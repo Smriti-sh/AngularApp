@@ -9,7 +9,7 @@
             [ngClass]="{'is-invalid':userFirstName.errors && userFirstName.touched}"
             type="text" 
             class="form-control" 
-            name="firstName"
+            name="firstname"
             #userFirstName="ngModel"
             required
             minlength="2">
@@ -47,7 +47,7 @@
             [ngClass]="{'is-invalid':userEmail.errors && userEmail.touched}"
             type="email" 
             class="form-control" 
-            name="userEmail"
+            name="email"
             #userEmail="ngModel"
             required
             pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">

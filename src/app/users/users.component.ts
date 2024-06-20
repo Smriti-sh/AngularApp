@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ViewChild} from '@angular/core';
 import { User } from '../models/User';
 import { url } from 'inspector';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 // import { NgZone } from '@angular/core';
 
 @Component({
@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './users.component.css'
 })
 export class UsersComponent implements OnInit {
+
+  @ViewChild('userForm') form: any;
 
   //property to bin form data
   user:User={
@@ -23,6 +25,7 @@ export class UsersComponent implements OnInit {
   loaded:boolean = false;
   enableAdd: boolean = false; 
   showUserForm:boolean=false;
+  
 
   constructor(){}
 
@@ -61,24 +64,21 @@ this.users = [
 }
 
 
-
-  addUser(){
-    this.user.isActive = true;
-    this.user.registered= new Date();
-    this.users.unshift(this.user);
-    // to clear out the form
-    this.user={
-      firstname:'',
-      lastName:'',
-      email: '',
-  }
-  }
-
-  onSubmit(e:any){
+// onSubmit({value,valid}: {value:User, valid:boolean})
+onSubmit({value,valid}: NgForm){
+  if (!valid) {
+    console.log('form is not valid');
     
-    console.log(123);
-    e.preventDefault();
+  } else {
+    value.isActive = true;
+    value.registered= new Date();
+    value.hide=true;
+    this.users.unshift(value);
+
+    this.form.reset();
   }
+}
+
 
   // fireEvent(e:any){
   //   // console.log("Button Clicked");
