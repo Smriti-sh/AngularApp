@@ -2,6 +2,7 @@ import { Component, OnInit , ViewChild} from '@angular/core';
 import { User } from '../models/User';
 import { url } from 'inspector';
 import { FormsModule, NgForm } from '@angular/forms';
+import { DataService } from '../services/data.service';
 // import { NgZone } from '@angular/core';
 
 @Component({
@@ -25,39 +26,17 @@ export class UsersComponent implements OnInit {
   loaded:boolean = false;
   enableAdd: boolean = false; 
   showUserForm:boolean=false;
-  
 
-  constructor(){}
+  constructor(private dataService:DataService){
+    // dataService variable will allow us to access any method from DataService
+    // inject service as a dependencies
+
+  }
 
   ngOnInit(){
 
-// this.showExtended = true;
+this.users = this.dataService.getUsers();
 
-this.users = [
-      {
-        firstname:'John',
-        lastName:'doe',
-        email: 'dfgh@fghj.com',
-        registered: new Date('2001-04-18T13:30:00'),
-        hide:true
-      },
-      {
-        firstname:'Kevin',
-        lastName:'johnson',
-        email: 'dfgh@fghj.com',
-        isActive:true,
-        registered: new Date('1996-10-16T13:30:00'),
-        hide:true
-      },
-      {
-        firstname:'Phil',
-        lastName:'Dunphy',
-        email: 'dfgh@fghj.com',
-        // The standard format is: YYYY-MM-DDTHH:mm:ss.sssZ
-        registered: new Date('2002-06-20T13:30:00'),
-        hide:true
-      }
-    ];
     this.loaded = true;
 
 
@@ -73,7 +52,8 @@ onSubmit({value,valid}: NgForm){
     value.isActive = true;
     value.registered= new Date();
     value.hide=true;
-    this.users.unshift(value);
+    // this.users.unshift(value);
+    this.dataService.addUser(value);
 
     this.form.reset();
   }

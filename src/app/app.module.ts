@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { UsersComponent } from './users/users.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     ReactiveFormsModule 
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    DataService
   ],
   bootstrap: [AppComponent]
 })
