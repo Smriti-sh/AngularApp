@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Post } from '../models/Post';
 import { PostService } from '../services/post.service';
 
@@ -9,7 +9,10 @@ import { PostService } from '../services/post.service';
 })
 export class PostFormComponent implements OnInit{
 
-  constructor(private postService:PostService){}
+  post:Post[] =[];
+  @Output() newPost: EventEmitter<Post> = new EventEmitter();
+
+  constructor(private postService: PostService){}
 
   ngOnInit(): void {
   }
@@ -18,9 +21,10 @@ export class PostFormComponent implements OnInit{
     if (!title || !body) {
       alert('Please add post');
     } else {
+      //savePost typically sends an HTTP POST request to save the new post on the server and returns an Observable<Post>, where Post represents the saved post.
       this.postService.savePost({title,body} as Post).subscribe(post => {
-        console.log(post);
-        
+        //we are emitting an event from this component & it includes the new post
+        this.newPost.emit(post);    
       })
     }
   }

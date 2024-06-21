@@ -3,9 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../models/Post';
 
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type':'application/json'})
-}
+
 
 // @Injectable({providedIn: 'root'})
 @Injectable()
@@ -20,6 +18,11 @@ postsUrl:string= 'https://jsonplaceholder.typicode.com/posts';
   }
 
   savePost(post:Post): Observable<Post>{
+
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type':'application/json'})
+    }
+
     return this.http.post<Post>(this.postsUrl,post,httpOptions);
   }
 }

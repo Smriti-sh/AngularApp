@@ -18,8 +18,11 @@ export class PostsComponent implements OnInit {
     this.postService.getPosts().subscribe(posts => {
       // console.log(posts);
       this.posts = posts;   //displaying the fetched data in the component
-      
   });
+  }
+
+  onNewPost(post :Post){
+    this.posts.unshift(post);
   }
 }
  
