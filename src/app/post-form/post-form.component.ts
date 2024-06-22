@@ -14,20 +14,20 @@ export class PostFormComponent implements OnInit{
 post:Post[] =[];
   @Output() newPost: EventEmitter<Post> = new EventEmitter();   //@Output(): A decorator that marks the newPost property as an output property, 
 // newPost will emit events carrying Post objects.
+@Output() updatedPost: EventEmitter<Post> = new EventEmitter();
+
+//currentPost defines an input property that will receive data from parent
   @Input() currentPost:Post ={
     id: 0,
     title: '',
     body: ''
   };
-  @Input()
-  isEdit: boolean = false;
+  @Input() isEdit: boolean = false; 
 
   constructor(private postService: PostService){
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   addPost(title:string,body:string){
     if (!title || !body) {
@@ -43,8 +43,13 @@ post:Post[] =[];
     }
   }
 
+  //calls updatePost method form postService service
   updatePost(){
-    console.log(123);
-    
+    this.postService.updatePost(this.currentPost).subscribe
+    ((post) => {
+      console.log(post);
+      this.isEdit=false;
+      this.updatedPost.emit(post);
+    }); 
   }
 }

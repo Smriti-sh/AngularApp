@@ -1,9 +1,15 @@
-export interface  User{
+export interface User{
     firstname:string,
     lastName:string,
     // properties with ? are not mandatory
-    email: string,
+    age:number,
+    address?:{
+      street?:string,
+      city?:string,
+      state?:string
+    }
+    image?:string,
     isActive?:boolean,
-    registered?:any,
-    hide?:boolean
+    balance?: number,
+    registered?:any
   }
