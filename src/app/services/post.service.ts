@@ -30,9 +30,15 @@ postsUrl:string= 'https://jsonplaceholder.typicode.com/posts';
     return this.http.put<Post>(url,post,httpOptions);
   }
 
+  getPost(id:number):Observable<Post>{
+    const url = `${this.postsUrl}/${id}`;
+    return this.http.get<Post>(url);
+  }
+
   removePost(post:Post | number):Observable<Post>{
     const id = typeof post === 'number'? post : post.id;
     const url = `${this.postsUrl}/${id}`;
     return this.http.delete<Post>(url,httpOptions);
   }
+  
 }

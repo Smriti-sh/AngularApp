@@ -1,39 +1,89 @@
+<button class="btn btn-dark  mb-3" (click)="showUserForm=!showUserForm">Add User</button>
+<div *ngIf="showUserForm">
+    <h2>Add User</h2>
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+        <div class="form-group">
+            <label>First Name :</label>
+            <input 
+            [(ngModel)]="user.firstname" 
+            [ngClass]="{'is-invalid':userFirstName.errors && userFirstName.touched}"
+            type="text" 
+            class="form-control" 
+            name="firstname"
+            #userFirstName="ngModel"
+            required
+            minlength="2">
+            <!-- elvis operator -->
+            <div [hidden]="!userFirstName.errors?.['required']" 
+            class="invalid-feedback">
+                First name required
+            </div>
+            <div [hidden]="!userFirstName.errors?.['minlength']" class="invalid-feedback">
+                must have atleast 2 characters
+            </div>
+        </div>
+        <label>Last Name :</label>
+        <input 
+            [(ngModel)]="user.lastName" 
+            [ngClass]="{'is-invalid':userLastName.errors && userLastName.touched}"
+            type="text" 
+            class="form-control" 
+            name="lastName"
+            #userLastName="ngModel"
+            required
+            minlength="2">
+            <!-- elvis operator -->
+            <div [hidden]="!userLastName.errors?.['required']" 
+            class="invalid-feedback">
+                First name required
+            </div>
+            <div [hidden]="!userLastName.errors?.['minlength']" class="invalid-feedback">
+                must have atleast 2 characters
+            </div>
+        <div class="form-group">
+            <label>Email :</label>
+            <input 
+            [(ngModel)]="user.email" 
+            [ngClass]="{'is-invalid':userEmail.errors && userEmail.touched}"
+            type="email" 
+            class="form-control" 
+            name="email"
+            #userEmail="ngModel"
+            required
+            pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?">
+            <!-- elvis operator -->
+            <div [hidden]="!userEmail.errors?.['required']"
+            class="invalid-feedback">
+                Email is required
+            </div>
+            <div [hidden]="!userEmail.errors?.['pattern']" class="invalid-feedback">
+                email is not valid
+            </div>
+        </div>
+        <button class="btn btn-success btn-block mt-4 mb-4" [disabled]="!userForm.form.valid" >Add New User</button>
+    </form>
+</div>
+
 <h2>Users</h2>
 <!-- [] is the property of the DOM element or component you want to bind to. -->
- <!-- [ngClass] apply classes based on certain conditions -->
-<button class="btn btn-block mb-2" [disabled]="!enableAdd" [ngClass]="currentClasses">Add New User</button>
+
+
 <!-- defining a template for if this is false called as noUsers -->
 <!-- <ul *ngIf="users.length >0;else noUsers"> -->
 
-    <!-- so when users are being loaded or before they are loaded 'users' does not exist,
-     so here we can add a '?' for its okay if it doesnot exist -->
 <ul class="list-unstyled" *ngIf="loaded && users?.length">
-    <!-- for each one We want an variable c/a user -->
-    <li class="card card-body mb-3" *ngFor=" let user of users " [class.bg-light]="user.isActive" [style.border-color]=" user.isActive? 'green': ''">
+    <li class="card card-body mb-3" *ngFor=" let user of users " [class.bg-light]="user.isActive">
 
-        <div class="row">
-            <div class="col-sm-4">
-                <!-- <img *ngIf="user.image" class="img-fluid" src=""> -->
-                 <img [src]="user.image" alt="profile_img">
-                <!-- <img *ngIf="user.image" class="img-fluid" src="{{user.image}}" alt=""> -->
-                <!-- <img *ngIf="user.image" class="img-fluid" bind-src="user.image" alt=""> -->
-            </div>
-            <div class="col-sm-8">
-                <h3 [ngStyle]="currentStyles">{{user.firstname | uppercase}} {{user.lastName | lowercase}}</h3>
-                <ul *ngIf="showExtended && user.age && user.address">
-                    <!-- <li>{{age}}</li> -->
-                    <li class="list-group-item">Age: {{user.age}}</li>
-                    <li class="list-group-item">Address: {{user.address.street}}{{user.address.city}}, {{user.address.state}}</li>
-                    <li class="list-group-item">Balance: {{user.balance}}</li>
-                    <li class="list-group-item">Registered on: {{user.registered}}</li>
+
+                <h3>{{user.firstname}} {{user.lastName}} <small><button class="btn btn-dark btn-sm" (click)="toggleHide(user)"><i [ngClass]="user.hide ? 'fa fa-plus' : 'fa fa-minus'" class="fa fa-plus"></i></button></small> </h3>
+
+                <ul class="list-group" *ngIf="!user.hide">
+                    <li class="list-group-item">Email: {{user.email}}</li>
+                    <li class="list-group-item">Joined on: {{user.registered | date :"fullDate"}}</li>
+
                 </ul>
-            </div>
-        </div>
     </li>
 </ul> 
-
-<!-- <ng-template #noUsers> <h4>No Users Found!</h4> </ng-template> -->
-
 <h4 *ngIf="users?.length==0">No Users Found.</h4>
 <!-- can add some spinners -->
 <h4 *ngIf="!loaded">Loading Users...</h4>
